@@ -1,5 +1,7 @@
 package com.sist.mongo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +27,19 @@ public class MainController {
 		dao.boardInsert(vo);
 		return "redirect:/board/list.do";
 	}
+	
 	@RequestMapping("board/list.do")
 	public String board_list(String page, Model model){
+		if (page==null) {
+			page="1";
+		}
+		int curpage=Integer.parseInt(page);
+		List<BoardVO> list= dao.boardAllData(curpage);
 		
-		
+		model.addAttribute("list", list);		
 		return "board/list";
 	}
+	
+	
 	
 }

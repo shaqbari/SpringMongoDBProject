@@ -70,6 +70,42 @@ public class BoardDAO {
 																					
 	}
 	
+	public List<BoardVO> boardAllData(int page){
+		List<BoardVO> list=new ArrayList<BoardVO>();
+		
+		try {
+			int rowSize=10;
+			int skip=(page-1)*rowSize;
+			/*
+			 * 0~9
+			 * 10~19 //2page의 경우 앞의 0~9번 10개는 skip하고 10번부터 가져온다.
+			 * 20~29
+			 * ...
+			 * */
+			BasicDBObject order=new BasicDBObject();
+			order.put("no", -1); //order by (-1:DESC, 1:ASC)
+			DBCursor cursor=dbc.find().sort(order).skip(skip).limit(rowSize);
+			while(cursor.hasNext()){
+				BasicDBObject obj=(BasicDBObject)cursor.next();
+				BoardVO vo=new BoardVO();
+				vo.setNo(obj.getInt("no"));
+				vo.setName(obj.getString("name"));
+				vo.setSubject(obj.getString("subject"));
+				vo.setRegdate(obj.getString("regdate"));
+				vo.setHit(obj.getInt("hit"));
+				
+				list.add(vo);				
+			}
+			cursor.close();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 	
 	
 }
