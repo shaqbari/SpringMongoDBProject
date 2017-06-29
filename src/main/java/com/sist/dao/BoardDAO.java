@@ -106,7 +106,46 @@ public class BoardDAO {
 		return list;
 	}
 	
-	
+	public BoardVO boardContentData(int no) {
+		BoardVO vo=new BoardVO();
+		
+		try {
+			BasicDBObject where=new BasicDBObject();
+			where.put("no", no);	//{no:1}
+			//{no:{"$lt":1}} no<1
+			/*
+			 * 	put("no", 1) => where no=1
+			 *  put("$lt", 1) <1
+			 *  put("$gt", 1) >1
+			 *  put("$le", 1) <=l
+			 *  put("$ge", 1) >=1
+			 *  put("$ne", 1) !=1
+			 * */
+			//{} : BasicDBObject : 블록하나
+			//BasicDBObject obj=(BasicDBObject)dbc.findOne();//맨처음거만 가져온다
+			BasicDBObject obj=(BasicDBObject)dbc.findOne(where);//no=1인거만 가져온다.
+			
+			//조회수 증가
+			BasicDBObject up=new BasicDBObject();			
+			up.put("hit", obj.getInt("hit")+1);
+			dbc.update(where, new BasicDBObject("$set", up));//$set을 안쓰면 where가 아닌 나머지는 null이된다.
+			
+			obj=(BasicDBObject)dbc.findOne(where);//조회수 증가한걸 다시 가져온다.
+			vo.setNo(obj.getInt("no"));
+			vo.setName(obj.getString("name"));
+			vo.setSubject(obj.getString("subject"));
+			vo.setRegdate(obj.getString("regdate"));
+			vo.setHit(obj.getInt("hit"));
+			vo.setContent(obj.getString("content"));
+			
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return vo;
+	}
 	
 }
 

@@ -12,6 +12,7 @@
 </script>
 </head>
 <body>
+	<%-- <%=application.getRealPath("/") %> /home/sist/springDev/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SpringMongoDBProject/ --%>
 	<center>
 		<h3>게시판</h3>
 		<table id="table_content" width="700">
@@ -32,7 +33,7 @@
 			<c:forEach var="vo" items="${list}">
 				<tr>
 					<td width="10%" align="center">${vo.no }</td>
-					<td width="45%" align="left">${vo.subject }</td>
+					<td width="45%" align="left"><a href="content.do?no=${vo.no }">${vo.subject }</a></td>
 					<td width="15%" align="center">${vo.name }</td>
 					<td width="20%" align="center">${vo.regdate }</td>
 					<td width="10%" align="center">${vo.hit }</td>

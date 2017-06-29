@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sist.dao.BoardDAO;
 import com.sist.dao.BoardVO;
+import com.sist.r.RManager;
 
 @Controller
 public class MainController {
 	@Autowired
 	private BoardDAO dao;
+	
+	@Autowired
+	private RManager rm;
 	
 	@RequestMapping("board/insert.do")
 	public String board_insert(){
@@ -40,6 +44,13 @@ public class MainController {
 		return "board/list";
 	}
 	
-	
+	@RequestMapping("board/content.do")
+	public String board_content(int no, Model model){
+		BoardVO vo=dao.boardContentData(no);
+		model.addAttribute("vo", vo);
+		rm.boardGraph(no);
+		
+		return "board/content";
+	}
 	
 }
