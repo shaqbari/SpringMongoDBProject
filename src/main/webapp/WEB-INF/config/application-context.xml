@@ -35,5 +35,17 @@
 		p:prefix="/"
 		p:suffix=".jsp"
 	/>
+	
+	<!-- mongodb연결 -->
+	<!-- <mongo:mongo-client
+		host="211.238.142.104"
+		id="mc"
+		port="27017"
+	/>
+	
+	<bean id="mongoTemplate"
+		class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="mc"/>
+	</bean> -->
 
 </beans>

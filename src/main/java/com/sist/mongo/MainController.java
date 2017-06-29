@@ -53,4 +53,21 @@ public class MainController {
 		return "board/content";
 	}
 	
+	@RequestMapping("board/update.do")
+	public String board_update(int no, Model model){
+		BoardVO vo=dao.boardUpdateData(no);
+		model.addAttribute("vo", vo);
+		
+		return "board/update";
+		
+	}
+	
+	@RequestMapping("board/delete.do")
+	public String board_delete(int no, Model model){
+		model.addAttribute("no", no);
+		
+		return "board/delete";
+		
+	}
+	
 }

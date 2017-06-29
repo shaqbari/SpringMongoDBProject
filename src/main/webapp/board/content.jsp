@@ -39,8 +39,8 @@
 		<table id="table_content" width="600">
 			<tr>
 				<td align="right">
-					<a href="#">수정</a>&nbsp;
-					<a href="#">삭제</a>&nbsp;
+					<a href="update.do?no=${vo.no }">수정</a>&nbsp;
+					<a href="delete.do?no=${vo.no }">삭제</a>&nbsp;
 					<a href="list.do">목록</a><!-- history.back하면 조회수가 안맞는다. -->
 				</td>
 			</tr>
